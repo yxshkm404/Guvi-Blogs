@@ -4,8 +4,7 @@ const {renderHomepage,renderLoginpage, renderSignupPage} = require('../controlle
 
 
 router.get("/", renderHomepage);
-router.get("/login", renderLoginpage)
-router.get("/signup", renderSignupPage)
-;
+router.get("/login", renderLoginpage);
+router.get("/signup", renderSignupPage);
 
 module.exports = router;
