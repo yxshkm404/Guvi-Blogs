@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+require('dotenv').config();
 
 async function genrateTokenForUser(id) {
     const user = await User.findById(id);
@@ -9,7 +10,7 @@ async function genrateTokenForUser(id) {
         fullName: user.fullName
 
     }
-    const token= jwt.sign(payload,"yash")
+    const token= jwt.sign(payload, process.env.SECRET_KEY,)
     return token 
 }
 
