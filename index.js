@@ -8,6 +8,7 @@ const staticRouter = require('./routers/staticRouter');
 const blogRouter = require('./routers/blogRoutes');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const cookieParser = require('cookie-parser');
 
 //database connection
 mongoose.connect(process.env.MONGO_DB).then(() => {
@@ -24,6 +25,7 @@ app.set('views', path.resolve('./views'))
 app.use(express.static(path.resolve('./public')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // register routes
 app.use('/', staticRouter);

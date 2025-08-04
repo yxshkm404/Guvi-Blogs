@@ -3,6 +3,7 @@ exports.renderHomepage = function (req, res)  {
 }
 
 exports.renderLoginpage = function (req, res)  {
+    if (req.cookies['token']) return res.redirect("/");
     return res.render("login");
 }
 
