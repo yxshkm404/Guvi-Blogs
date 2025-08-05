@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {handleUserLogin,handleUserSignup} = require('../controllers/userController');
 
-router.get("/:id",function(req, res) {
-    res.end("Route is under construction");
+router.get("/logout",function(req, res) {
+    return  res.clearCookie('token').redirect('/');
 })
 
 router.post('/login', handleUserLogin);

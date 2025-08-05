@@ -9,6 +9,7 @@ const blogRouter = require('./routers/blogRoutes');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
+const { checkForToken } = require('./middlewares/auth');
 
 //database connection
 mongoose.connect(process.env.MONGO_DB).then(() => {
@@ -17,7 +18,7 @@ mongoose.connect(process.env.MONGO_DB).then(() => {
   console.error('Error connecting to MongoDB:', err);
 });
 
-//configrations
+//configrations of ejs
 app.set('view engine', 'ejs');
 app.set('views', path.resolve('./views'))
 
@@ -26,6 +27,8 @@ app.use(express.static(path.resolve('./public')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(checkForToken);
+
 
 // register routes
 app.use('/', staticRouter);

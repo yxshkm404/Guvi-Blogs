@@ -14,6 +14,11 @@ async function genrateTokenForUser(id) {
     return token 
 }
 
+function validateToken(token) {
+return jwt.verify(token, process.env.SECRET_KEY)
+}
+
 module.exports = {
-    genrateTokenForUser
+    genrateTokenForUser,
+    validateToken
 };
