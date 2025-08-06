@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 require('dotenv').config();
 
+// Function to generate a token for a user
 async function genrateTokenForUser(id) {
     const user = await User.findById(id);
     const payload = {
@@ -14,6 +15,7 @@ async function genrateTokenForUser(id) {
     return token 
 }
 
+// validateToken function to verify the token
 function validateToken(token) {
 return jwt.verify(token, process.env.SECRET_KEY)
 }

@@ -6,7 +6,7 @@ exports.checkForToken = (req, res, next) => {
     if (!token) return next()
     try {
         const userPayload = validateToken(token);
-        req.user = userPayload
+        req.user = userPayload // req.user will be available in the request object
         return next();
     } catch (error) {
         return next()
