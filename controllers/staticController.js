@@ -1,6 +1,12 @@
-exports.renderHomepage = function (req, res)  {
+const Blog = require("../models/blog");
+
+
+
+exports.renderHomepage = async function (req, res)  {
+    const allBlogs = await Blog.find({})
     return res.render("home",{
-        user: req.user
+        user: req.user,
+        blogs: allBlogs,
     });
 }
 

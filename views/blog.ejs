@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/css/bootstrap') %>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Homepage</title>
+</head>
+
+<body>
+    <%- include('./partials/components/nav') %>
+
+        <div class="container my-5">
+            <div class="text-center">
+                <img width="60%" src="/uploads/<%= blog.coverImage %>" class="rounded mx-auto" />
+            </div>
+            <h1 class="my-5 text-center">
+                <%= blog.title %>
+            </h1>
+            <p>
+                <%= blog.content %>
+            </p>
+            <p>Posted By:<%= blog.createdBy.fullName %></p>
+        </div>
+        <%- include('./partials/js/bootstrap') %>
+</body>
+
+</html>
