@@ -6,6 +6,7 @@ const app = express();
 const userRouter = require('./routers/userRoutes');
 const staticRouter = require('./routers/staticRouter');
 const blogRouter = require('./routers/blogRoutes');
+const commentRouter = require('./routers/commentRoutes');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
@@ -23,6 +24,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve('./views'))
 
 //middlewares
+app.use(express.json());
 app.use(express.static(path.resolve('./public')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,6 +36,7 @@ app.use(checkForToken);
 app.use('/', staticRouter);
 app.use('/user', userRouter);
 app.use('/blog', blogRouter);
+app.use('/comment', commentRouter);
 
 //listener
 app.listen(8000, () => {
