@@ -12,3 +12,23 @@ exports.checkForToken = (req, res, next) => {
         return next()
     }
 }
+
+exports.onlyGrantAccessTo = function (role) {
+    return function (req, res, next) {
+        const token = req.cookies['token']
+        if (!token) return res.redirect('/')
+        try {
+            const userPayload = validateToken(token);
+            if (userPayload.role === role) {
+                req.user = userPayload // req.user will be available in the request object
+                return next();
+            }else {
+                 res.redirect('/')
+            }
+
+        } catch (error) {
+            res.redirect('/')
+        }
+
+    }
+}

@@ -8,16 +8,16 @@ async function genrateTokenForUser(id) {
     const payload = {
         _id: user._id,
         email: user.email,
-        fullName: user.fullName
-
+        fullName: user.fullName,
+        role: user.role
     }
-    const token= jwt.sign(payload, process.env.SECRET_KEY,)
-    return token 
+    const token = jwt.sign(payload, process.env.SECRET_KEY,)
+    return token
 }
 
 // validateToken function to verify the token
 function validateToken(token) {
-return jwt.verify(token, process.env.SECRET_KEY)
+    return jwt.verify(token, process.env.SECRET_KEY)
 }
 
 module.exports = {

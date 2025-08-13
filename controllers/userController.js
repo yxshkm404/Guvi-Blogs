@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Blog = require('../models/blog');
 const { genrateTokenForUser } = require('../utils/auth');
 
 // user login controller 
@@ -40,4 +41,13 @@ exports.handleUserSignup = async function (req, res) {
         res.render('signup', { error: 'An error occurred during signup. Please try again.' });
         console.log(err.message);
     }
+}
+
+exports.renderUserBlogs = async function(req,res){
+if(!req.user) return res.redirect("/login")
+    const blogs = await Blog.find({createdBy: req.user._id})
+    return res.render("userBlogs", {
+        user: req.user,
+        blogs: blogs
+    })
 }

@@ -12,6 +12,9 @@
     <%- include('./partials/components/nav') %>
 
         <div class="container my-5">
+            <% if (locals.user && user.role ==='Admin') { %>
+             <a class="btn btn-danger" href="/blog/delete/<%= blog._id %>">delete blog</a>
+            <% } %>
             <div class="text-center">
                 <img width="60%" src="/uploads/<%= blog.coverImage %>" class="rounded mx-auto" />
             </div>
@@ -28,9 +31,16 @@
                 <input type="text" placeholder="Enter your comments" class="form-control" id="commentInput">
                 <button id="submitBtn" class="btn btn-success my-2">post</button>
             </div>
-            
-            
        <% } %>
+       <div class="container">
+        <h1>comments(<%= comments.length %>)</h1>
+        <% comments.forEach(comment => { %>
+        <div>
+            <span class="text-bold"> <%= comment.createdBy.fullName %> - <%= comment.content %></span>
+        </div>
+        <% }) %>
+
+       </div>
         
         <%- include('./partials/js/bootstrap') %>
         <script>

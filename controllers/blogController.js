@@ -1,11 +1,16 @@
 const Blog = require("../models/blog");
+const Comment = require("../models/comment");
 
+
+// This function renders the create blog page
 exports.renderCreateBlogPage = function (req, res) {
     res.render("createBlog", {
         user: req.user
     })
 };
 
+
+// This function creates a new blog post
 exports.createNewBlogPost = async function (req, res) {
     const { title, content } = req.body;
 
@@ -30,13 +35,16 @@ exports.createNewBlogPost = async function (req, res) {
     }
 }
 
+// This function renders a specific blog post and also fetches comments related to that blog post
 exports.renderBlogPost = async function (req, res) {
     try{
         const id = req.params.id;
         const blog = await Blog.findById(id).populate("createdBy")
+        const comments = await Comment.find ({blogId: Blog._id}).populate("createdBy");
         return res.render("blog",{
             user: req.user,
-            blog: blog
+            blog: blog,
+            comments: comments
         })
     }
     catch(error){
