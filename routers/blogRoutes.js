@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const Blog= require('../models/blog');
-const {renderCreateBlogPage, createNewBlogPost, renderBlogPost} = require('../controllers/blogController');
-const {onlyGrantAccessTo} = require('../middlewares/auth');
+const {renderCreateBlogPage, createNewBlogPost, renderBlogPost,handleDeleteBlog} = require('../controllers/blogController');
+const {onlyGrantAccessTo,ensureAuthenticated} = require('../middlewares/auth');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -16,16 +16,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.get("/create", renderCreateBlogPage);
+router.get("/create",ensureAuthenticated, renderCreateBlogPage);
 
 router.get("/view/:id", renderBlogPost);
 
-router.get('/delete/:id', onlyGrantAccessTo('Admin'), async (req, res) => {
-    await Blog.deleteOne({ _id: req.params.id });
-    res.redirect('/');
-});
+router.get('/delete/:id',onlyGrantAccessTo('Admin'),handleDeleteBlog); 
 
 
-router.post("/create", upload.single("coverImage"), createNewBlogPost);
+router.post("/create", ensureAuthenticated,upload.single("coverImage"), createNewBlogPost);
 
 module.exports = router;

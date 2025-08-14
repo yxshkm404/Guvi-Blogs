@@ -18,6 +18,10 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    views: {
+        type: Number,
+        default: 0,
+    }
 },{timestamps: true})
 
 const Blog = mongoose.model('Blog', blogSchema);

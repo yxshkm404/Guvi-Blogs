@@ -39,6 +39,7 @@ exports.createNewBlogPost = async function (req, res) {
 exports.renderBlogPost = async function (req, res) {
     try{
         const id = req.params.id;
+        await Blog.findByIdAndUpdate(id, { $inc: { views: 1 } }, { new: true });
         const blog = await Blog.findById(id).populate("createdBy")
         const comments = await Comment.find ({blogId: Blog._id}).populate("createdBy");
         return res.render("blog",{
@@ -52,3 +53,10 @@ exports.renderBlogPost = async function (req, res) {
     }
 }
     
+
+exports.handleDeleteBlog = async function (req, res) {
+    
+await Blog.deleteOne({ _id: req.params.id });
+    res.redirect('/');
+
+}
