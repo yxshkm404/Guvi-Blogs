@@ -1,6 +1,6 @@
 # 📝 Node.js Blog Website
 
-A full-featured **Blog Website** built with **Node.js**, **Express.js**, and **MongoDB**, developed collaboratively over 20 days.  
+A full-featured **Blog Website** built with **Node.js**, **Express.js**, and **MongoDB**, developed  over 7 days.  
 This project focuses on clean backend architecture, CRUD operations, and a dynamic blog experience with a **Views Counter** feature.
 
 ---
